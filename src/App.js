@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Type } from 'react-bootstrap-table2-editor';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import Modal from './Modal/Modal';
 
 
 
@@ -9,7 +11,7 @@ import { Type } from 'react-bootstrap-table2-editor';
 class App extends Component {
 
   state = {
-    modalShow: false,
+    showModal: false,
     data: [
       {
         key:0,
@@ -25,7 +27,7 @@ class App extends Component {
         grossProfitMargin: 7575884,
         netProfit:67588548,
         netProfitMargin: 6778585,
-        currentRatio: .6
+        currentRatio: 60
       },
       {
         key: 1,
@@ -41,7 +43,7 @@ class App extends Component {
         grossProfitMargin: 7575884,
         netProfit:67588548,
         netProfitMargin: 6778585,
-        currentRatio: .6
+        currentRatio: 60
       },
       {
         key: 2,
@@ -57,7 +59,7 @@ class App extends Component {
         grossProfitMargin: 7575884,
         netProfit:67588548,
         netProfitMargin: 6778585,
-        currentRatio: .6
+        currentRatio: 60
       },
       {
         key: 3,
@@ -69,7 +71,7 @@ class App extends Component {
         grossProfitMargin: 7575884,
         netProfit:67588548,
         netProfitMargin: 6778585,
-        currentRatio: .6
+        currentRatio: 60
       },
       {
         key: 4,
@@ -85,7 +87,7 @@ class App extends Component {
         grossProfitMargin: 7575884,
         netProfit:67588548,
         netProfitMargin: 6778585,
-        currentRatio: .6
+        currentRatio: 60
       },
       {
         key: 5,
@@ -101,13 +103,11 @@ class App extends Component {
         grossProfitMargin: 7575884,
         netProfit:67588548,
         netProfitMargin: 6778585,
-        currentRatio: .6
+        currentRatio: 60
       }
     ],
     selectedRows: []
   }
-
-
 
   onClickOfRow = (e, row, rowIndex) => {
     let selectedRows=[...this.state.selectedRows];
@@ -121,63 +121,80 @@ class App extends Component {
     this.setState({selectedRows});
   }
 
+  onClose = e => {
+    this.props.show = false;
+  }
+
+  currencyFormatter = (cell,row) => {
+    if(!cell) {
+      return '';
+    }
+    
+    return (
+      <span>
+        $ { cell.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
+      </span>
+    )
+  }
+
 
   handleDelete = () => {
-   let rows = [...this.state.data];
-    /*
-    * Delete should filter for each
-    *
-    * 
-    */ 
+   let data = [...this.state.data];
+   this.state.selectedRows.forEach(item => {
+     data = data.filter(obj => obj.key !== item);
+   });
 
-    // for(let i = 0; this.state.selectedRows.length; i++) {
-    //   const key = this.state.selectedRows[i];
-    //   console.log(rows.includes(key));
-    //   if(rows.includes(key)) {
-
-    //       rows = rows.filter(row => row.key !== key);
-    //   }
-    // }
-
-    this.setState({data: rows});
-    // let arrayOfRows = [...this.state.selectedRows];
-    // //
-    // let dataArray = [...this.state.data];
-    // for(let i = 0; i < arrayOfRows.length; i++) {
-      
-    //   delete dataArray[temp];
-    // }
-    
-    // let finalArray = this.arrayRemove(dataArray,'undefined');
-    // console.log(finalArray);
-    //  this.setState({
-    //    data: finalArray,
-    //    selectedRows: []
-    //   });
+   this.setState({data});
   }
 
   handleOnSelect = (row, isSelect) => {
     return true; 
   }
 
+  
+  
   handleOnSelectAll = (isSelect, rows) => {
     if (isSelect && rows) {
       let selectedRows = rows.map(r => r.key);
       this.setState({selectedRows});
 
     } else if(isSelect && !rows) {
-      
       this.setState({selectedRows: []});
-  
     }
   }
 
-  showModal = () => {
-    this.setState({showModal: true})
+  ratioFormatter = (cell,row) => {
+     if(!cell) {
+       return '';
+     }
+      return (
+        <span>
+          % {cell}
+        </span>
+      )
   }
 
   addNewRow = () => {
+    const data =[...this.state.data];
 
+
+  data.push(  {
+    key: this.state.data[this.state.data.length - 1].key + 1,
+    companyName: '',
+    companyLocation: '',
+    currentValuation: null,
+    companyDescription:  null,
+    keyContacts:[],
+    status:'',
+    grossProfitMargin: null,
+    netProfit: null,
+    netProfitMargin: null,
+    currentRatio: null
+  });
+
+  this.setState({data});
+    // const showModal = !this.state.showModal;
+    //   this.setState({showModal});
   }
 
 
@@ -191,7 +208,8 @@ class App extends Component {
       text: 'HQ Location'
     }, {
       dataField: 'currentValuation',
-      text: 'Current Valuation'
+      text: 'Current Valuation',
+      formatter: this.currencyFormatter
     },
     {
       dataField: 'companyDescription',
@@ -219,25 +237,25 @@ class App extends Component {
     },
     {
       dataField: 'grossProfitMargin',
-      text: 'Gross Profit Margin'
+      text: 'Gross Profit Margin',
+      formatter: this.currencyFormatter
     },
     {
       dataField: 'netProfit',
-      text: 'Net Profit'
+      text: 'Net Profit',
+      formatter: this.currencyFormatter
     },
     {
       dataField: 'netProfitMargin',
-      text: 'Net Profit Margin'
+      text: 'Net Profit Margin',
+      formatter: this.currencyFormatter
     },
     {
       dataField: 'currentRatio',
-      text: 'Current Ratio'
+      text: 'Current Ratio',
+      formatter: this.ratioFormatter
     },
-    {
-      dataField: "databasePkey",
-      text: "Remove",
-      
-  }
+   
   ];
 
   const rowStyle = {
@@ -251,16 +269,17 @@ class App extends Component {
 
   const selectRow = {
     mode: 'checkbox',
-    clickToSelect: true,
-    style: { backgroundColor: '#ef8383' },
+    clickToSelect: false,
     onSelect: this.handleOnSelect,
-    onSelectAll: this.handleOnSelectAll
+    onSelectAll: this.handleOnSelectAll,
+    clickToEdit: true
   };
 
 
     return (
       <div className="App">
-      <button type="button" className="btn btn-primary" onClick={this.addNew}>Add New</button><br/>
+      <h1>Target Companies for Acquisition</h1>
+      <button type="button" className="btn btn-primary" onClick={this.addNewRow}>Add New Row</button><br/>
       <button type="button" className="btn btn-danger" onClick={this.handleDelete}>Delete Row(s)</button>
         <BootstrapTable 
         keyField='key' 
@@ -268,7 +287,11 @@ class App extends Component {
         columns={ columns } 
         rowEvents={rowEvents} 
         rowStyle={rowStyle} 
-        selectRow={selectRow} />
+        selectRow={selectRow} 
+        cellEdit= {cellEditFactory({ mode: 'click',
+        blurToSave: true,
+        })} />
+      
       </div>
     );
   }
