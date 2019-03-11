@@ -1,0 +1,147 @@
+[{
+    "key": 0,
+    "companyName": "Integra llc",
+    "companyLocation": "Atlanta, GA",
+    "currentValuation": 60000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact":"Name: Codi Sordelet Email Address: codisordelet@gmail.com",
+    "status": "Pending Approval",
+    "grossProfitMargin": 7575884,
+    "netProfit": 67588548,
+    "netProfitMargin": 6778585,
+    "currentRatio": 60
+}, {
+    "key": 1,
+    "companyName": "Alan llc",
+    "companyLocation": "Savannah, GA",
+    "currentValuation": 3000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Codi Sordelet",
+        "position": "CEO",
+        "email": "codisordelet@gmail.com"
+    },
+    "status": "Approved",
+    "grossProfitMargin": 1500000,
+    "netProfit": 4000000,
+    "netProfitMargin": 250000,
+    "currentRatio": 40
+}, {
+    "key": 2,
+    "companyName": "Radiant llc",
+    "companyLocation": "Seattle, WA",
+    "currentValuation": 4000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Codi Sordelet",
+        "position": "CEO",
+        "email": "codisordelet@gmail.com"
+    },
+    "status": "Approved",
+    "grossProfitMargin": 7575884,
+    "netProfit": 67588548,
+    "netProfitMargin": 6778585,
+    "currentRatio": 30
+}, {
+    "key": 3,
+    "companyName": "Cramer llc",
+    "companyLocation": "New York, NY",
+    "currentValuation": 11000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Codi Sordelet",
+        "position": "CEO",
+        "email": "codisordelet@gmail.com"
+    },
+    "status": "Approved",
+    "grossProfitMargin": 7575884,
+    "netProfit": 67588548,
+    "netProfitMargin": 6778585,
+    "currentRatio": 52
+}, {
+    "key": 4,
+    "companyName": "Giovanni's Pizza",
+    "companyLocation": "Atlanta, GA",
+    "currentValuation": 60000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Codi Sordelet",
+        "position": "CEO",
+        "email": "codisordelet@gmail.com"
+    },
+    "status": "Approved",
+    "grossProfitMargin": 7575884,
+    "netProfit": 67588548,
+    "netProfitMargin": 6778585,
+    "currentRatio": 91
+},
+{
+    "key": 6,
+    "companyName": "Epic Inc",
+    "companyLocation": "Alpharetta, GA",
+    "currentValuation": 5000000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "John Doe",
+        "position": "CEO",
+        "email": "johndoe@gmail.com"
+    },
+    "status": "Declined",
+    "grossProfitMargin": 3000000000,
+    "netProfit": 3000000000,
+    "netProfitMargin": 2,
+    "currentRatio": 78
+},
+{
+    "key": 7,
+    "companyName": "Sultan Consultantcy Creatives Inc",
+    "companyLocation": "Los Angeles, CA",
+    "currentValuation": 50089000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Jane Doe",
+        "position": "CEO",
+        "email": "janedoe@gmail.com"
+    },
+    "status": "Researching",
+    "grossProfitMargin": 50089000,
+    "netProfit": 50089000,
+    "netProfitMargin": 50089000,
+    "currentRatio": 73
+},
+{
+    "key": 8,
+    "companyName": "Ubisoft games",
+    "companyLocation": "Milpitas, CA",
+    "currentValuation": 1300000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Surrey London",
+        "position": "CEO",
+        "email": "surreylondon@gmail.com"
+    },
+    "status": "Researching",
+    "grossProfitMargin": 50089000,
+    "netProfit": 50089000,
+    "netProfitMargin": 50089000,
+    "currentRatio": 78
+},
+{
+    "key": 9,
+    "companyName": "Kombucha World",
+    "companyLocation": "Portland, OR",
+    "currentValuation": 8000000,
+    "companyDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "keyContact": {
+        "name": "Gina Samuels",
+        "position": "CEO",
+        "email": "ginasamuels@gmail.com"
+    },
+    "status": "Researching",
+    "grossProfitMargin": 3000000,
+    "netProfit": 3000000,
+    "netProfitMargin": 2500000,
+    "currentRatio": 72
+}
+
+]
