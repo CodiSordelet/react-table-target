@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "http://CodiSordelet.github.io/react-table-target",
+  "homepage": "https://CodiSordelet.github.io/react-table-target",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
