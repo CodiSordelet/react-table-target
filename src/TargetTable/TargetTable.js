@@ -5,6 +5,8 @@ import cellEditFactory from 'react-bootstrap-table2-editor';
 import './TargetTable.css';
 import axios from 'axios';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import KeyContactsTable from '../KeyContactsTable/KeyContactsTable';
+
 
 
 export default class TargetTable extends React.Component {
@@ -12,16 +14,14 @@ export default class TargetTable extends React.Component {
         data: [],
         selectedRows: []
       }
-    
+
       onClickOfRow = (e, row, rowIndex) => {
         let selectedRows=[...this.state.selectedRows];
-    
         if(selectedRows.includes(row.key)) {
           selectedRows = selectedRows.filter(value => value !== row.key);
         } else if(!selectedRows.includes(row.key)) {
           selectedRows.push(row.key);
         }
-    
         this.setState({selectedRows});
       }
     
@@ -33,7 +33,7 @@ export default class TargetTable extends React.Component {
         if(!cell) {
           return '';
         }
-    
+
         return (
           <span>
             $ { cell.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
@@ -41,19 +41,15 @@ export default class TargetTable extends React.Component {
         )
       }
     
-    
       handleDelete = () => {
        let data = [...this.state.data];
        this.state.selectedRows.forEach(item => {
          data = data.filter(obj => obj.key !== item);
        });
-    
-       //filter out rowkey that does not have a matching object in data on state
+
        this.setState({data});
        let selectedRows = [...this.state.selectedRows];
-         //if the selectedRows contains a key that does not belong to currently stored targets,
-         // remove it from selectedRows
-        this.state.data.forEach(item => {
+      this.state.data.forEach(item => {
             selectedRows = selectedRows.filter(key => key !== item.key);
         });
 
@@ -72,20 +68,6 @@ export default class TargetTable extends React.Component {
           }
       }
 
-      formatContacts = (cell, row) => {
-        if(cell) {
-            return( 
-                <ul>
-                {cell.name}
-                </ul>
-                )
-        }
-
-        return 'blank'
-      }
-    
-      
-      
       handleOnSelectAll = (isSelect, rows) => {
         const ids = rows.map(r => r.key);
         if (isSelect) {
@@ -98,7 +80,7 @@ export default class TargetTable extends React.Component {
           }));
         }
       }
-    
+
       ratioFormatter = (cell,row) => {
          if(!cell) {
            return '';
@@ -111,10 +93,8 @@ export default class TargetTable extends React.Component {
       }
     
       addNewRow = () => {
-    
         const data =[...this.state.data];
-
-        let target ={
+        let target = {
             key: new Date().getTime(),
             companyName: '',
             companyLocation: '',
@@ -127,23 +107,73 @@ export default class TargetTable extends React.Component {
             netProfitMargin: null,
             currentRatio: null
           }
-    
-    
-      data.push(target);
-    
-      this.setState({data});
+        data.push(target);
+        this.setState({data});
       }
 
       componentDidMount() {
           axios.get('data.json').then(response => {
              this.setState({data:response.data}) 
-            })
-          
+            });
       }
 
+      handleChangeName =(e,indexOfObject,objectKey) => {
+        const data = [...this.state.data];
+        let ObjectIndex = data.map((target) => target.key).indexOf(indexOfObject);
+        let index =  data[ObjectIndex].keyContacts.map((contact) => {return contact.key }).indexOf(objectKey);
+        data[ObjectIndex].keyContacts[index].name = e.target.value;
+        this.setState({data});
+      }
 
-    
-    
+      handleChangeEmail =(e,indexOfObject,objectKey) => {
+        const data = [...this.state.data];
+        let ObjectIndex = data.map((target) => target.key).indexOf(indexOfObject);
+        let index = data[ObjectIndex].keyContacts.map((contact) => {return contact.key }).indexOf(objectKey);
+        data[ObjectIndex].keyContacts[index].email = e.target.value;
+        this.setState({data});
+      }
+
+      handleChangePhoneNumber =(e,indexOfObject,objectKey) => {
+        const data = [...this.state.data];
+        let ObjectIndex = data.map((target) => target.key).indexOf(indexOfObject);
+        let index =  data[ObjectIndex].keyContacts.map((contact) => {return contact.key }).indexOf(objectKey);
+        data[ObjectIndex].keyContacts[index].phoneNumber = e.target.value;
+        this.setState({data});
+      }
+
+      handleChangePosition =(e,indexOfObject,objectKey) => {
+        const data = [...this.state.data];
+        let ObjectIndex = data.map((target) => target.key).indexOf(indexOfObject);
+        let index =  data[ObjectIndex].keyContacts.map((contact) => {return contact.key }).indexOf(objectKey);
+        data[ObjectIndex].keyContacts[index].position = e.target.value;
+        this.setState({data});
+      }
+
+      handleDeletionOfContact = (e,indexOfObject,objectKey) => {
+       const data = [...this.state.data];
+       let ObjectIndex = data.map((target) => target.key).indexOf(indexOfObject);
+       let index =  data[ObjectIndex].keyContacts.map((contact) => {return contact.key }).indexOf(objectKey);
+       data[ObjectIndex].keyContacts.splice(index,1);
+       this.setState({data});
+      }
+
+      addNewKeyContact = (e,key) => {
+            const data = [...this.state.data];
+            let index = data.map((target) => target.key).indexOf(key);
+            
+       
+            data[index].keyContacts.push(
+                {   
+                    key: new Date().getTime(),
+                    name:"",
+                    email: "",
+                    position: "",
+                    phoneNumber: ""
+                    }
+            )
+            this.setState({data})
+      }
+
       render() {
         const data =[...this.state.data];
         const columns = [{
@@ -200,17 +230,11 @@ export default class TargetTable extends React.Component {
           dataField: 'currentRatio',
           text: 'Operating Ratio',
           formatter: this.ratioFormatter
-        },
-        {
-            dataField: 'keyContact',
-            text: 'Key Contact',
-            formatter: this.formatContacts
-          }
-       
+        }
       ];
-    
+
       const rowStyle = {
-         backgroundColor: 'white',
+         backgroundColor: 'table-dark',
          fontSize: 12
       };
     
@@ -227,14 +251,36 @@ export default class TargetTable extends React.Component {
         style: { backgroundColor: '#7aad66' }
       };
 
+      const expandRow = {
+        renderer: row => {
+            return(
+                <KeyContactsTable
+                        addNewKeyContact={this.addNewKeyContact}
+                        row={row}
+                        handleChangeName={this.handleChangeName}
+                        handleChangeEmail={this.handleChangeEmail}
+                        handleChangePhoneNumber={this.handleChangePhoneNumber}
+                        handleChangePosition={this.handleChangePosition}
+                        handleDeletionOfContact={this.handleDeletionOfContact}
+                    />
+            )
+        },
+        showExpandColumn: true
+      }
+
+      const style ={
+          color: '#ffffff',
+          fontWeight:'bold'
+      }
+
      return (
         <div className='table'>
-          <h1>Target Companies for Acquisition</h1>
+          <h1 style ={style} className='text-center'>Target Companies for Acquisition</h1>
           <div className='btn-toolbar'>
           <button type="button" className="btn btn-primary action" onClick={this.addNewRow}>Add New Row</button>
           <button type="button" className="btn btn-danger" onClick={this.handleDelete}>Delete Row(s)</button>
           </div>
-            <BootstrapTable 
+          <BootstrapTable 
             keyField='key' 
             data={ data } 
             columns={ columns } 
@@ -244,8 +290,11 @@ export default class TargetTable extends React.Component {
             cellEdit= {cellEditFactory({ mode: 'dbclick',
             blurToSave: true,
             })}
-            pagination={paginationFactory()} />
+            expandRow ={expandRow}
+            pagination={paginationFactory()}
+            wrapperClasses='table-dark' />
           </div>
         );
       }
-}
+} 
+

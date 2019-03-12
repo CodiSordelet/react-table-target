@@ -8,8 +8,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <div className='container'>
-      <TargetTable className="table"/>
+
+      <div className='container-fluid'>
+      <TargetTable className="container table"/>
       </div>
        
       </div>
