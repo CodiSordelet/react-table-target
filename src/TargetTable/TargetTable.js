@@ -233,10 +233,6 @@ export default class TargetTable extends React.Component {
         }
       ];
 
-      const rowStyle = {
-         backgroundColor: 'table-dark',
-         fontSize: 12
-      };
     
       const rowEvents = {
         onClick: this.onClickOfRow
@@ -248,7 +244,7 @@ export default class TargetTable extends React.Component {
         onSelect: this.handleOnSelect,
         onSelectAll: this.handleOnSelectAll,
         clickToEdit: true,
-        style: { backgroundColor: '#7aad66' }
+        style: { backgroundColor: '#f79b9b' }
       };
 
       const expandRow = {
@@ -285,14 +281,13 @@ export default class TargetTable extends React.Component {
             data={ data } 
             columns={ columns } 
             rowEvents={rowEvents} 
-            rowStyle={rowStyle} 
             selectRow={selectRow} 
             cellEdit= {cellEditFactory({ mode: 'dbclick',
             blurToSave: true,
             })}
             expandRow ={expandRow}
             pagination={paginationFactory()}
-            wrapperClasses='table-dark' />
+             />
           </div>
         );
       }

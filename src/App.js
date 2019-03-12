@@ -9,11 +9,11 @@ class App extends Component {
     return (
       <div className="App">
 
-      <div className='container-fluid'>
-      <TargetTable className="container table"/>
+      
+      <TargetTable className="container-fluid table"/>
       </div>
        
-      </div>
+     
     );
   }
 }
